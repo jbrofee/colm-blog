@@ -1,3 +1,7 @@
+`pnpm astro build && pnpm wrangler pages deploy ./dist`
+
+
+
 # Astro Starter Kit: Basics
 
 ```sh
