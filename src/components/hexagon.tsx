@@ -20,8 +20,8 @@ function HexagonBackground({
 }: HexagonBackgroundProps) {
   const hexagonWidth = hexagonSize;
   const hexagonHeight = hexagonSize * 1.1;
-  const rowSpacing = hexagonSize * 0.8;
-  const baseMarginTop = -36 - 0.275 * (hexagonSize - 100);
+  const rowSpacing = hexagonSize * 0.92;
+  const baseMarginTop = -(hexagonSize * 0.18);
   const computedMarginTop = baseMarginTop + hexagonMargin;
   const oddRowMarginLeft = -(hexagonSize / 2);
   const evenRowMarginLeft = hexagonMargin / 2;
@@ -47,13 +47,13 @@ function HexagonBackground({
     <div
       data-slot="hexagon-background"
       className={cn(
-        'relative size-full overflow-hidden dark:bg-neutral-900 bg-neutral-100',
+        'relative size-full overflow-hidden dark:bg-[url(/forest-background.jpg)] bg-neutral-100',
         className,
       )}
       {...props}
     >
       <style>{`:root { --hexagon-margin: ${hexagonMargin}px; }`}</style>
-      <div className="absolute top-0 -left-0 size-full overflow-hidden">
+      <div className="absolute top-0 left-0 size-full overflow-hidden">
         {Array.from({ length: gridDimensions.rows }).map((_, rowIndex) => (
           <div
             key={`row-${rowIndex}`}
@@ -78,12 +78,8 @@ function HexagonBackground({
                     ...hexagonProps?.style,
                   }}
                   className={cn(
-                    'relative',
-                    '[clip-path:polygon(50%_0%,_100%_25%,_100%_75%,_50%_100%,_0%_75%,_0%_25%)]',
-                    "before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full dark:before:bg-neutral-950 before:bg-white before:opacity-100 before:transition-all before:duration-1000",
-                    "after:content-[''] after:absolute after:inset-[var(--hexagon-margin)] dark:after:bg-neutral-950 after:bg-white",
-                    'after:[clip-path:polygon(50%_0%,_100%_25%,_100%_75%,_50%_100%,_0%_75%,_0%_25%)]',
-                    'hover:before:bg-neutral-200 dark:hover:before:bg-green-800 hover:before:opacity-100 hover:before:duration-0 dark:hover:after:bg-amber-900 hover:after:bg-neutral-100 hover:after:opacity-100 hover:after:duration-0',
+                    'relative bg-black border border-zinc-400 transition-opacity duration-500 ease-in-out hover:opacity-0 hover:duration-100',
+                    '[clip-path:polygon(50%_0%,100%_25%,100%_75%,50%_100%,0%_75%,0%_25%)]',
                     hexagonProps?.className,
                   )}
                 />
