@@ -1,5 +1,11 @@
 ---
+import WelcomeBackground from '@/components/welcome-background';
+import Layout from './Layout.astro';
 const { frontmatter } = Astro.props;
 ---
-<h1>{frontmatter.title}</h1>
-<slot />
+<Layout>
+    <WelcomeBackground client:load />
+    <div class="z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center gap-4 bg-gray-700 p-10">
+        <slot />
+    </div>
+</Layout>
