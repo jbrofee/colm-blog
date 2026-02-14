@@ -1,36 +1,11 @@
 ---
-import { Button } from '../components/ui/button'
-import '@fontsource/pathway-gothic-one'
-import '@fontsource-variable/eb-garamond'
-import { FaGithub} from 'react-icons/fa6'
-import { FaLinkedinIn } from 'react-icons/fa'
 import WelcomeBackground from './welcome-background'
+import HeroCard from './HeroCard.astro'
 ---
 
 <div class="relative h-screen w-full" transition:name="bg-container" transition:animate="none">
 	<WelcomeBackground client:load transition:persist="bg" />
-	<div transition:name="hero-card" class="z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center gap-4 bg-gray-700 p-10">
-		<h1 class="text-5xl font">Colm O'Sullivans Blog</h1>
-		<Button>
-			<FaGithub />
-			<p class="text-2xl">Github</p>
-		</Button>
-		<Button>
-			<FaLinkedinIn/>
-			LinkedIn
-		</Button>
-		<a href="/blog">
-			<Button>
-				<p class="text-2xl">Blog</p>
-			</Button>
-		</a>
+	<div class="z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+		<HeroCard />
 	</div>
 </div>
-<style>
-	h1 {
-		font-family: "Pathway Gothic One"
-	}
-	p {
-		font-family: "EB Garamond Variable"
-	}
-</style>

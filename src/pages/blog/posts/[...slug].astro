@@ -1,7 +1,10 @@
 ---
 import { getCollection, render } from 'astro:content';
-import BlogPostLayout from '../../../layouts/BlogPostLayout.astro';
+import Layout from '../../../layouts/Layout.astro';
+import WelcomeBackground from '../../../components/welcome-background';
 import Prose from '../../../components/Prose.astro';
+import HeroCard from '../../../components/HeroCard.astro';
+import BlogList from '../../../components/BlogList.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -13,8 +16,28 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 ---
-<BlogPostLayout frontmatter={post.data}>
-    <Prose>
-        <Content />
-    </Prose>   
-</BlogPostLayout>
+
+<Layout>
+  <div class="relative h-screen w-full" transition:name="bg-container" transition:animate="none">
+    <WelcomeBackground client:load transition:persist="bg" />
+
+    <div class="z-10 absolute inset-0 grid grid-cols-[auto_1fr] grid-rows-2 gap-4 p-6">
+      <!-- Hero card — top left -->
+      <div class="row-span-1 self-start">
+        <HeroCard />
+      </div>
+
+      <!-- Post content — right side, spans both rows -->
+      <div transition:name="post-content" class="row-span-2 overflow-y-auto bg-gray-800/90 p-8 rounded-lg">
+        <Prose>
+          <Content />
+        </Prose>
+      </div>
+
+      <!-- Blog list — bottom left -->
+      <div class="row-span-1 self-stretch">
+        <BlogList compact activePostId={post.id} />
+      </div>
+    </div>
+  </div>
+</Layout>

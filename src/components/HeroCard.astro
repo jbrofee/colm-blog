@@ -1,0 +1,33 @@
+---
+import { Button } from './ui/button'
+import '@fontsource/pathway-gothic-one'
+import '@fontsource-variable/eb-garamond'
+import { FaGithub } from 'react-icons/fa6'
+import { FaLinkedinIn } from 'react-icons/fa'
+---
+
+<div transition:name="hero-card" class="flex flex-col justify-center gap-4 bg-gray-700 p-10">
+	<h1 class="text-5xl">Colm O'Sullivans Blog</h1>
+	<Button>
+		<FaGithub />
+		<p class="text-2xl">Github</p>
+	</Button>
+	<Button>
+		<FaLinkedinIn />
+		LinkedIn
+	</Button>
+	<a href="/blog">
+		<Button>
+			<p class="text-2xl">Blog</p>
+		</Button>
+	</a>
+</div>
+
+<style>
+	h1 {
+		font-family: "Pathway Gothic One";
+	}
+	p {
+		font-family: "EB Garamond Variable";
+	}
+</style>
