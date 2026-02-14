@@ -7,9 +7,9 @@ import { FaLinkedinIn } from 'react-icons/fa'
 import WelcomeBackground from './welcome-background'
 ---
 
-<div class="relative h-screen w-full">
-	<WelcomeBackground client:load />
-	<div class="z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center gap-4 bg-gray-700 p-10">
+<div class="relative h-screen w-full" transition:name="bg-container" transition:animate="none">
+	<WelcomeBackground client:load transition:persist="bg" />
+	<div transition:name="hero-card" class="z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center gap-4 bg-gray-700 p-10">
 		<h1 class="text-5xl font">Colm O'Sullivans Blog</h1>
 		<Button>
 			<FaGithub />
