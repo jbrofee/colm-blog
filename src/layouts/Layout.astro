@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 ---
 
 <!doctype html>
@@ -12,7 +12,7 @@ import { ViewTransitions } from 'astro:transitions';
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Colm O'Sullivan Website</title>
-		<ViewTransitions />
+		<ClientRouter />
 	</head>
 	<body>
 		<slot />

@@ -1,0 +1,77 @@
+---
+// MobileSidebar.astro
+// Mobile: slide-out drawer from the left with hamburger toggle
+// Desktop (md+): uses display:contents so children join the parent layout seamlessly
+---
+
+<!-- Toggle button (mobile only) -->
+<button
+	data-sidebar-toggle
+	class="md:hidden fixed top-4 right-4 z-50 p-2 bg-gray-700/90 backdrop-blur rounded-lg text-white hover:bg-gray-600 transition-colors"
+	aria-label="Toggle menu"
+>
+	<svg data-icon="hamburger" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+		<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+	</svg>
+	<svg data-icon="close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+		<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+	</svg>
+</button>
+
+<!-- Backdrop overlay (mobile only) -->
+<div
+	data-sidebar-backdrop
+	class="md:hidden fixed inset-0 bg-black/50 z-30 opacity-0 pointer-events-none transition-opacity duration-300"
+></div>
+
+<!-- Sidebar panel: fixed drawer on mobile, display:contents on desktop -->
+<aside
+	data-sidebar-panel
+	class="fixed inset-0 z-40 overflow-y-auto bg-gray-900/80 backdrop-blur-sm opacity-0 scale-95 pointer-events-none transition-all duration-300 ease-in-out md:contents md:opacity-100 md:scale-100 md:pointer-events-auto"
+>
+	<div class="flex flex-col gap-4 p-6 pt-16 md:contents">
+		<slot />
+	</div>
+</aside>
+
+<script>
+	function initSidebar() {
+		const toggle = document.querySelector('[data-sidebar-toggle]') as HTMLElement | null;
+		const backdrop = document.querySelector('[data-sidebar-backdrop]') as HTMLElement | null;
+		const panel = document.querySelector('[data-sidebar-panel]') as HTMLElement | null;
+
+		if (!toggle || !backdrop || !panel) return;
+
+		const hamburger = toggle.querySelector('[data-icon="hamburger"]');
+		const closeIcon = toggle.querySelector('[data-icon="close"]');
+
+		const _panel = panel;
+		const _backdrop = backdrop;
+
+		function open() {
+			_panel.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+			_panel.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+			_backdrop.classList.remove('opacity-0', 'pointer-events-none');
+			_backdrop.classList.add('opacity-100', 'pointer-events-auto');
+			hamburger?.classList.add('hidden');
+			closeIcon?.classList.remove('hidden');
+		}
+
+		function close() {
+			_panel.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+			_panel.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+			_backdrop.classList.add('opacity-0', 'pointer-events-none');
+			_backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+			hamburger?.classList.remove('hidden');
+			closeIcon?.classList.add('hidden');
+		}
+
+		toggle.addEventListener('click', () => {
+			_panel.classList.contains('opacity-0') ? open() : close();
+		});
+
+		_backdrop.addEventListener('click', close);
+	}
+
+	document.addEventListener('astro:page-load', initSidebar);
+</script>

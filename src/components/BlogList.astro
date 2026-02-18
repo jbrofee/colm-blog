@@ -19,7 +19,7 @@ const allPosts = await getCollection('blog');
 		{
 			allPosts.map((post) => (
 				<li class:list={[
-					"p-4 rounded-md transition-colors",
+					"p-4 transition-colors",
 					activePostId && post.id === activePostId
 						? "bg-gray-600/80"
 						: "bg-gray-700/60 hover:bg-gray-600/60"

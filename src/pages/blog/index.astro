@@ -3,16 +3,19 @@ import Layout from "../../layouts/Layout.astro";
 import WelcomeBackground from "../../components/welcome-background";
 import HeroCard from "../../components/HeroCard.astro";
 import BlogList from "../../components/BlogList.astro";
+import MobileSidebar from "../../components/MobileSidebar.astro";
 ---
 
 <Layout>
   <div class="relative h-screen w-full" transition:name="bg-container" transition:animate="none">
     <WelcomeBackground client:load transition:persist="bg" />
     <div class="z-10 absolute inset-0 flex items-center justify-center gap-8 px-8">
-      <div class="shrink-0">
-        <HeroCard />
-      </div>
-      <div class="max-h-[80vh]">
+      <MobileSidebar>
+        <div class="shrink-0">
+          <HeroCard />
+        </div>
+      </MobileSidebar>
+      <div class="max-h-[80vh] w-full md:w-auto">
         <BlogList />
       </div>
     </div>
