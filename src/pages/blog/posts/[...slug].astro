@@ -25,16 +25,16 @@ const { Content } = await render(post);
     <div class="z-10 absolute inset-0 grid grid-cols-1 grid-rows-[1fr] md:grid-cols-[auto_1fr] md:grid-rows-2 gap-4 p-6 pt-16 md:pt-6">
       <!-- Sidebar: drawer on mobile, grid children on desktop -->
       <MobileSidebar>
-        <div class="md:row-span-1 md:self-start">
+        <div class="md:row-start-1 md:col-start-1 md:row-span-1 md:self-start">
           <HeroCard />
         </div>
-        <div class="md:row-span-1 md:self-stretch">
+        <div class="md:row-start-2 md:col-start-1 md:row-span-1 md:self-stretch">
           <BlogList compact activePostId={post.id} />
         </div>
       </MobileSidebar>
 
       <!-- Post content — full width on mobile, right side on desktop -->
-      <div transition:name="post-content" class="md:row-span-2 overflow-y-auto bg-gray-800/90 p-8 rounded-lg min-h-0">
+      <div transition:name="post-content" class="md:row-start-1 md:col-start-2 md:row-span-2 overflow-y-auto bg-gray-800/90 p-8 rounded-lg min-h-0">
         <Prose>
           <Content />
         </Prose>
