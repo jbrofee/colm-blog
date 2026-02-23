@@ -6,7 +6,7 @@ import { FaGithub } from 'react-icons/fa6'
 import { FaLinkedinIn } from 'react-icons/fa'
 ---
 
-<div transition:name="hero-card" class="flex flex-col justify-center gap-4 bg-gray-700 p-10">
+<div transition:name="hero-card" class="flex flex-col justify-center gap-4 bg-slate-900 p-10 text-slate-300">
 	<h1 class="text-5xl">Colm O'Sullivans Blog</h1>
 	<Button>
 		<FaGithub />
@@ -14,10 +14,10 @@ import { FaLinkedinIn } from 'react-icons/fa'
 	</Button>
 	<Button>
 		<FaLinkedinIn />
-		LinkedIn
+		<p class="text-2xl">LinkedIn</p>
 	</Button>
 	<a href="/blog">
-		<Button>
+		<Button className="w-full">
 			<p class="text-2xl">Blog</p>
 		</Button>
 	</a>

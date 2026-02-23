@@ -14,7 +14,7 @@ const { compact = false, activePostId } = Astro.props;
 const allPosts = await getCollection('blog');
 ---
 
-<div transition:name="blog-list" class="overflow-y-auto bg-gray-800/90 p-8">
+<div transition:name="blog-list" class="overflow-y-auto bg-slate-900/90 p-8">
 	<ul class="flex flex-col gap-4">
 		{
 			allPosts.map((post) => (
