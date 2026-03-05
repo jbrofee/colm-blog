@@ -1,8 +1,7 @@
 'use client';
 
 import * as React from 'react';
-
-import { cn } from '@/lib/utils';
+import './hexagon.css';
 
 type HexagonBackgroundProps = React.ComponentProps<'div'> & {
   hexagonProps?: React.ComponentProps<'div'>;
@@ -11,7 +10,7 @@ type HexagonBackgroundProps = React.ComponentProps<'div'> & {
 };
 
 function HexagonBackground({
-  className,
+  className = '',
   children,
   hexagonProps,
   hexagonSize = 75,
@@ -43,17 +42,19 @@ function HexagonBackground({
     return () => window.removeEventListener('resize', updateGridDimensions);
   }, [updateGridDimensions]);
 
+  const classes = [
+    'hexagon-background',
+    className
+  ].filter(Boolean).join(' ');
+
   return (
     <div
       data-slot="hexagon-background"
-      className={cn(
-        'relative size-full overflow-hidden dark:bg-[url(/forest-background.jpg)] bg-neutral-100',
-        className,
-      )}
+      className={classes}
       {...props}
     >
       <style>{`:root { --hexagon-margin: ${hexagonMargin}px; }`}</style>
-      <div className="absolute top-0 left-0 size-full overflow-hidden">
+      <div className="hexagon-grid">
         {Array.from({ length: gridDimensions.rows }).map((_, rowIndex) => (
           <div
             key={`row-${rowIndex}`}
@@ -64,7 +65,7 @@ function HexagonBackground({
                   ? evenRowMarginLeft
                   : oddRowMarginLeft) - 10,
             }}
-            className="inline-flex"
+            className="hexagon-row"
           >
             {Array.from({ length: gridDimensions.columns }).map(
               (_, colIndex) => (
@@ -77,11 +78,7 @@ function HexagonBackground({
                     marginLeft: hexagonMargin,
                     ...hexagonProps?.style,
                   }}
-                  className={cn(
-                    'relative bg-black border border-zinc-400 transition-opacity duration-500 ease-in-out hover:opacity-0 hover:duration-100',
-                    '[clip-path:polygon(50%_0%,100%_25%,100%_75%,50%_100%,0%_75%,0%_25%)]',
-                    hexagonProps?.className,
-                  )}
+                  className={['hexagon', hexagonProps?.className].filter(Boolean).join(' ')}
                 />
               ),
             )}

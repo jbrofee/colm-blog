@@ -4,10 +4,32 @@ import Layout from './Layout.astro';
 const { frontmatter } = Astro.props;
 ---
 <Layout>
-    <div class="relative h-screen w-full" transition:name="bg-container" transition:animate="none">
+    <div class="blog-post-container" transition:name="bg-container" transition:animate="none">
         <WelcomeBackground client:load transition:persist="bg" />
-        <div transition:name="blog-list" transition:animate="slide" class="z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center gap-4 bg-gray-700 p-10">
+        <div transition:name="blog-list" transition:animate="slide" class="blog-post-content">
             <slot />
         </div>
     </div>
 </Layout>
+
+<style>
+	.blog-post-container {
+		position: relative;
+		height: 100vh;
+		width: 100%;
+	}
+	
+	.blog-post-content {
+		z-index: 10;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 1rem;
+		background-color: rgb(55, 65, 81);
+		padding: 2.5rem;
+	}
+</style>

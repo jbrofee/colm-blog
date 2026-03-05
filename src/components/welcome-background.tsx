@@ -147,7 +147,14 @@ export default function WelcomeBackground() {
     return (
         <div
             ref={containerRef}
-            className="absolute inset-0 overflow-hidden bg-[url('/welcome-background.jpg')] bg-cover bg-center"
+            style={{
+                position: 'absolute',
+                inset: 0,
+                overflow: 'hidden',
+                backgroundImage: 'url("/welcome-background.jpg")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+            }}
         />
     )
 }

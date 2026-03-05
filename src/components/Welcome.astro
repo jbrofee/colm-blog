@@ -3,9 +3,25 @@ import WelcomeBackground from './welcome-background'
 import HeroCard from './HeroCard.astro'
 ---
 
-<div class="relative h-screen w-full" transition:name="bg-container" transition:animate="none">
+<div class="welcome-container" transition:name="bg-container" transition:animate="none">
 	<WelcomeBackground client:load transition:persist="bg" />
-	<div class="z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+	<div class="welcome-content">
 		<HeroCard />
 	</div>
 </div>
+
+<style>
+	.welcome-container {
+		position: relative;
+		height: 100vh;
+		width: 100%;
+	}
+	
+	.welcome-content {
+		z-index: 10;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+</style>

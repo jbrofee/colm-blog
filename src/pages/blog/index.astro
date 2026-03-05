@@ -7,17 +7,51 @@ import MobileSidebar from "../../components/MobileSidebar.astro";
 ---
 
 <Layout>
-  <div class="relative h-screen w-full" transition:name="bg-container" transition:animate="none">
+  <div class="blog-index-container" transition:name="bg-container" transition:animate="none">
     <WelcomeBackground client:load transition:persist="bg"/>
-    <div class="z-10 absolute inset-0 flex items-center justify-center gap-8 px-8">
+    <div class="blog-index-content">
       <MobileSidebar>
-        <div class="shrink-0">
+        <div class="blog-index-hero">
           <HeroCard/>
         </div>
       </MobileSidebar>
-      <div class="max-h-[80vh] w-full md:w-auto">
+      <div class="blog-index-list">
         <BlogList/>
       </div>
     </div>
   </div>
 </Layout>
+
+<style>
+	.blog-index-container {
+		position: relative;
+		height: 100vh;
+		width: 100%;
+	}
+	
+	.blog-index-content {
+		z-index: 10;
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 2rem;
+		padding: 2rem;
+	}
+	
+	.blog-index-hero {
+		flex-shrink: 0;
+	}
+	
+	.blog-index-list {
+		max-height: 80vh;
+		width: 100%;
+	}
+	
+	@media (min-width: 768px) {
+		.blog-index-list {
+			width: auto;
+		}
+	}
+</style>

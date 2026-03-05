@@ -7,13 +7,13 @@
 <!-- Toggle button (mobile only) -->
 <button
 	data-sidebar-toggle
-	class="md:hidden fixed top-4 right-4 z-50 p-2 bg-gray-700/90 backdrop-blur rounded-lg text-white hover:bg-gray-600 transition-colors"
+	class="sidebar-toggle"
 	aria-label="Toggle menu"
 >
-	<svg data-icon="hamburger" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+	<svg data-icon="hamburger" class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 		<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
 	</svg>
-	<svg data-icon="close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+	<svg data-icon="close" class="icon icon-hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 		<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
 	</svg>
 </button>
@@ -21,18 +21,101 @@
 <!-- Backdrop overlay (mobile only) -->
 <div
 	data-sidebar-backdrop
-	class="md:hidden fixed inset-0 bg-black/50 z-30 opacity-0 pointer-events-none transition-opacity duration-300"
+	class="sidebar-backdrop"
 ></div>
 
 <!-- Sidebar panel: fixed drawer on mobile, display:contents on desktop -->
 <aside
 	data-sidebar-panel
-	class="fixed inset-0 z-40 overflow-y-auto bg-gray-900/80 backdrop-blur-sm opacity-0 scale-95 pointer-events-none transition-all duration-300 ease-in-out md:contents md:opacity-100 md:scale-100 md:pointer-events-auto"
+	class="sidebar-panel"
 >
-	<div class="flex flex-col gap-4 p-6 pt-16 md:contents">
+	<div class="sidebar-content">
 		<slot />
 	</div>
 </aside>
+
+<style>
+	.sidebar-toggle {
+		position: fixed;
+		top: 1rem;
+		right: 1rem;
+		z-index: 50;
+		padding: 0.5rem;
+		background-color: rgba(55, 65, 81, 0.9);
+		backdrop-filter: blur(4px);
+		border-radius: 0.5rem;
+		color: white;
+		border: none;
+		cursor: pointer;
+		transition: background-color 0.2s;
+	}
+	
+	.sidebar-toggle:hover {
+		background-color: rgb(75, 85, 99);
+	}
+	
+	.icon {
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+	
+	.icon-hidden {
+		display: none;
+	}
+	
+	.sidebar-backdrop {
+		position: fixed;
+		inset: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 30;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.3s;
+	}
+	
+	.sidebar-panel {
+		position: fixed;
+		inset: 0;
+		z-index: 40;
+		overflow-y: auto;
+		background-color: rgba(17, 24, 39, 0.8);
+		backdrop-filter: blur(4px);
+		opacity: 0;
+		transform: scale(0.95);
+		pointer-events: none;
+		transition: all 0.3s ease-in-out;
+	}
+	
+	.sidebar-content {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding: 1.5rem;
+		padding-top: 4rem;
+	}
+	
+	/* Desktop styles */
+	@media (min-width: 768px) {
+		.sidebar-toggle {
+			display: none;
+		}
+		
+		.sidebar-backdrop {
+			display: none;
+		}
+		
+		.sidebar-panel {
+			display: contents;
+			opacity: 1;
+			transform: scale(1);
+			pointer-events: auto;
+		}
+		
+		.sidebar-content {
+			display: contents;
+		}
+	}
+</style>
 
 <script>
 	function initSidebar() {
@@ -49,25 +132,27 @@
 		const _backdrop = backdrop;
 
 		function open() {
-			_panel.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
-			_panel.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
-			_backdrop.classList.remove('opacity-0', 'pointer-events-none');
-			_backdrop.classList.add('opacity-100', 'pointer-events-auto');
-			hamburger?.classList.add('hidden');
-			closeIcon?.classList.remove('hidden');
+			_panel.style.opacity = '1';
+			_panel.style.transform = 'scale(1)';
+			_panel.style.pointerEvents = 'auto';
+			_backdrop.style.opacity = '1';
+			_backdrop.style.pointerEvents = 'auto';
+			hamburger?.classList.add('icon-hidden');
+			closeIcon?.classList.remove('icon-hidden');
 		}
 
 		function close() {
-			_panel.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-			_panel.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
-			_backdrop.classList.add('opacity-0', 'pointer-events-none');
-			_backdrop.classList.remove('opacity-100', 'pointer-events-auto');
-			hamburger?.classList.remove('hidden');
-			closeIcon?.classList.add('hidden');
+			_panel.style.opacity = '0';
+			_panel.style.transform = 'scale(0.95)';
+			_panel.style.pointerEvents = 'none';
+			_backdrop.style.opacity = '0';
+			_backdrop.style.pointerEvents = 'none';
+			hamburger?.classList.remove('icon-hidden');
+			closeIcon?.classList.add('icon-hidden');
 		}
 
 		toggle.addEventListener('click', () => {
-			_panel.classList.contains('opacity-0') ? open() : close();
+			_panel.style.opacity === '0' || !_panel.style.opacity ? open() : close();
 		});
 
 		_backdrop.addEventListener('click', close);

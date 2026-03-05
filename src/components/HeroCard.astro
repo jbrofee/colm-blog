@@ -6,35 +6,55 @@ import { FaGithub } from 'react-icons/fa6'
 import { FaLinkedinIn } from 'react-icons/fa'
 ---
 
-<div transition:name="hero-card" class="flex flex-col justify-center gap-4 bg-slate-900 p-10 text-slate-300">
-	<h1 class="text-5xl">Colm O'Sullivans Blog</h1>
+<div transition:name="hero-card" class="hero-card">
+	<h1>Colm O'Sullivans Blog</h1>
 	<Button>
 		<FaGithub />
-		<p class="text-2xl">Github</p>
+		<p>Github</p>
 	</Button>
 	<Button>
 		<FaLinkedinIn />
-		<p class="text-2xl">LinkedIn</p>
+		<p>LinkedIn</p>
 	</Button>
 	<a href="/blog">
-		<Button className="w-full">
-			<p class="text-2xl">Blog</p>
+		<Button className="full-width">
+			<p>Blog</p>
 		</Button>
 	</a>
 	<a href="/cv">
-		<Button className="w-full">
-			<p class="text-2xl">CV</p>
+		<Button className="full-width">
+			<p>CV</p>
 		</Button>
 	</a>
 </div>
 
 <style>
+	.hero-card {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 1rem;
+		background-color: rgb(15, 23, 42);
+		padding: 2.5rem;
+		color: rgb(203, 213, 225);
+	}
+	
 	h1 {
 		font-family: "Pathway Gothic One";
+		font-size: 3rem;
+		line-height: 1;
 	}
+	
 	p {
 		font-family: "EB Garamond Variable";
+		font-size: 1.5rem;
+		line-height: 2rem;
 	}
+	
+	.full-width {
+		width: 100%;
+	}
+	
 	@media (max-width: 767px) {
 		div[data-astro-transition-scope] {
 			view-transition-name: none !important;

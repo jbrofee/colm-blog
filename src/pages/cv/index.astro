@@ -8,23 +8,23 @@ import * as CVMarkdown from './cv.mdx'
 ---
 
 <Layout>
-    <div class="relative h-screen w-full" transition:name="bg-container" transition:animate="none">
+    <div class="cv-container" transition:name="bg-container" transition:animate="none">
         <WelcomeBackground client:load transition:persist="bg" />
 
-        <div class="z-10 absolute inset-0 grid grid-cols-1 grid-rows-[1fr] md:grid-cols-[auto_1fr] md:grid-rows-2 gap-4 p-6 pt-16 md:pt-6">
+        <div class="cv-layout">
             <!-- Sidebar: drawer on mobile, grid children on desktop -->
             <MobileSidebar>
-                <div class="md:row-start-1 md:col-start-1 md:row-span-1 md:self-start">
+                <div class="cv-hero">
                     <HeroCard />
                 </div>
-                <div class="md:row-start-2 md:col-start-1 md:row-span-1 md:self-stretch">
+                <div class="cv-bloglist">
                     <BlogList compact/>
                 </div>
             </MobileSidebar>
 
             <!-- Post content — full width on mobile, right side on desktop -->
-            <div transition:name="post-content" id="cv" class="md:row-start-1 md:col-start-2 md:row-span-2 overflow-y-auto bg-slate-900/90 p-8 rounded-lg min-h-0">
-                <h1 class="text-4xl">CV</h1>
+            <div transition:name="post-content" id="cv" class="cv-content">
+                <h1>CV</h1>
                 <CVMarkdown.Content />
             </div>
         </div>
@@ -32,7 +32,74 @@ import * as CVMarkdown from './cv.mdx'
 </Layout>
 
 <style>
-    #cv {
-        font-family: "EB Garamond Variable";
-    }
+	.cv-container {
+		position: relative;
+		height: 100vh;
+		width: 100%;
+	}
+	
+	.cv-layout {
+		z-index: 10;
+		position: absolute;
+		inset: 0;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr;
+		gap: 1rem;
+		padding: 1.5rem;
+		padding-top: 4rem;
+	}
+	
+	.cv-hero {
+		display: block;
+	}
+	
+	.cv-bloglist {
+		display: block;
+	}
+	
+	.cv-content {
+		overflow-y: auto;
+		background-color: rgba(15, 23, 42, 0.9);
+		padding: 2rem;
+		border-radius: 0.5rem;
+		min-height: 0;
+	}
+	
+	.cv-content h1 {
+		font-size: 2.25rem;
+		line-height: 2.5rem;
+	}
+	
+	#cv {
+		font-family: "EB Garamond Variable";
+	}
+	
+	@media (min-width: 768px) {
+		.cv-layout {
+			grid-template-columns: auto 1fr;
+			grid-template-rows: auto 1fr;
+			padding-top: 1.5rem;
+		}
+		
+		.cv-hero {
+			grid-row-start: 1;
+			grid-column-start: 1;
+			grid-row: span 1;
+			align-self: start;
+		}
+		
+		.cv-bloglist {
+			grid-row-start: 2;
+			grid-column-start: 1;
+			grid-row: span 1;
+			align-self: stretch;
+		}
+		
+		.cv-content {
+			grid-row-start: 1;
+			grid-column-start: 2;
+			grid-row: span 2;
+		}
+	}
 </style>

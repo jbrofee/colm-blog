@@ -14,25 +14,25 @@ const { compact = false, activePostId } = Astro.props;
 const allPosts = await getCollection('blog');
 ---
 
-<div transition:name="blog-list" class="overflow-y-auto bg-slate-900/90 p-8">
-	<ul class="flex flex-col gap-4">
+<div transition:name="blog-list" class="blog-list">
+	<ul>
 		{
 			allPosts.map((post) => (
 				<li class:list={[
-					"p-4 transition-colors",
+					"blog-item",
 					activePostId && post.id === activePostId
-						? "bg-gray-600/80"
-						: "bg-gray-700/60 hover:bg-gray-600/60"
+						? "blog-item-active"
+						: "blog-item-default"
 				]}>
 					{compact ? (
-						<a href={`/blog/posts/${post.id}/`} class="text-blue-400 hover:underline text-sm">
+						<a href={`/blog/posts/${post.id}/`} class="blog-link-compact">
 							{post.data.title}
 						</a>
 					) : (
 						<>
-							<h3 class="text-xl font-semibold">{post.data.title}</h3>
-							<p class="text-gray-300">{post.data.description}</p>
-							<a href={`/blog/posts/${post.id}/`} class="text-blue-400 hover:underline">
+							<h3>{post.data.title}</h3>
+							<p>{post.data.description}</p>
+							<a href={`/blog/posts/${post.id}/`} class="blog-link">
 								Read more →
 							</a>
 						</>
@@ -44,9 +44,69 @@ const allPosts = await getCollection('blog');
 </div>
 
 <style>
+	.blog-list {
+		overflow-y: auto;
+		background-color: rgba(15, 23, 42, 0.9);
+		padding: 2rem;
+	}
+	
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	
+	.blog-item {
+		padding: 1rem;
+		transition: background-color 0.2s;
+	}
+	
+	.blog-item-active {
+		background-color: rgba(75, 85, 99, 0.8);
+	}
+	
+	.blog-item-default {
+		background-color: rgba(55, 65, 81, 0.6);
+	}
+	
+	.blog-item-default:hover {
+		background-color: rgba(75, 85, 99, 0.6);
+	}
+	
+	h3 {
+		font-size: 1.25rem;
+		line-height: 1.75rem;
+		font-weight: 600;
+	}
+	
 	p {
 		font-family: "EB Garamond Variable";
+		color: rgb(209, 213, 219);
 	}
+	
+	.blog-link {
+		color: rgb(96, 165, 250);
+		text-decoration: none;
+	}
+	
+	.blog-link:hover {
+		text-decoration: underline;
+	}
+	
+	.blog-link-compact {
+		color: rgb(96, 165, 250);
+		text-decoration: none;
+		font-size: 0.875rem;
+		line-height: 1.25rem;
+	}
+	
+	.blog-link-compact:hover {
+		text-decoration: underline;
+	}
+	
 	@media (max-width: 767px) {
 		div[data-astro-transition-scope] {
 			view-transition-name: none !important;
